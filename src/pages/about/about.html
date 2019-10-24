@@ -1,11 +1,48 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            Circulares
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+
+    <ion-card>
+        <img src='../../assets/img/004.png' />
+
+        <ion-card-header>
+            <b>Circulares</b>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-list>
+                <!-- <ion-list-header> &nbsp; <b>Listado peticiones, quejas, reclamos y sugerencias </b></ion-list-header> -->
+                <ion-item (click)="Open()">
+                    <ion-icon name="mail" item-start></ion-icon>
+
+                    <div>Avisos Fumigación</div>
+                    <div>08-2017</div>
+                </ion-item>
+                <ion-item (click)="Open()">
+                    <ion-icon name="mail" item-start></ion-icon>
+                    2019-01-06 - Limpieza piscina y corredores
+                </ion-item>
+                <ion-item (click)="Open()">
+                    <ion-icon name="mail" item-start></ion-icon>
+                    2019-01-25 - Instalación camaras seguridad corredor
+                </ion-item>
+                <ion-item (click)="Open()">
+                    <ion-icon name="checkbox-outline" item-start></ion-icon>
+                    2019-02-02 - Entrega documentación portería
+                </ion-item>
+                <ion-item (click)="Open()">
+                    <ion-icon name="checkbox-outline" item-start></ion-icon>
+                    2019-02-11 - Estado puerta entrada vehículos
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
 
 </ion-content>

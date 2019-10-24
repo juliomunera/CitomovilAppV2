@@ -1,0 +1,76 @@
+<!--
+  Generated template for the EnterCodePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Registro dispositivo</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card [hidden]="showPhoneCard">
+        <ion-card-header>
+            <b>Número teléfono celular</b>
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <span class="Things">
+                Ingrese el número del teléfono celular que se va a ingresar en la plataforma citomovil:
+            </span>
+
+            <p>&nbsp;</p>
+
+            <ion-input class="EnterCodeBackground" placeholder="Teléfono" type="tel" text-center maxlength=10 [(ngModel)]="phoneNumber"></ion-input>
+
+            <p>&nbsp;</p>
+            <ion-row center>
+                <ion-col text-center>
+                    <button ion-button icon-start large (click)="PhoneRegister()">
+                        Registrar
+                    </button>
+                </ion-col>
+            </ion-row>
+
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card [hidden]="showCodeCard">
+        <ion-card-header>
+            <b>Entre el código de verificación</b>
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <span class="Things">
+                Ingrese el código de verificación que te llega a la bandeja de mensajes SMS:
+            </span>
+
+            <p>&nbsp;</p>
+
+            <ion-input class="EnterCodeBackground" name="" placeholder="Código" type="tel" text-center maxlength=5 [(ngModel)]="codeNumber"></ion-input>
+
+            <p>&nbsp;</p>
+            <ion-row center>
+                <ion-col text-center>
+                    <button ion-button icon-start large (click)="codeValidate()">
+                        Validar
+                    </button>
+
+                    <button ion-button icon-start large (click)="resetCellphone()">
+                            Regresar
+                    </button>
+                </ion-col>
+            </ion-row>
+
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

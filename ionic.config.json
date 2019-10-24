@@ -1,5 +1,7 @@
 {
-  "name": "CitoTestProject",
-  "integrations": {},
-  "type": "ionic-angular"
+    "name": "Citomovil",
+    "integrations": {
+        "cordova": {}
+    },
+    "type": "ionic-angular"
 }

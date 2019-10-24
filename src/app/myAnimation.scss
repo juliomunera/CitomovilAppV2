@@ -1,0 +1,217 @@
+@import "../assets/animate/animate.scss";
+.animateApp{
+// ********************** My Classes that extended *************
+
+    .bounceInLeft{
+        @include bounceInLeft(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        } 
+    .bounceInRight{
+        @include bounceInRight(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        } 
+
+    .bounceInDown{
+        @include bounceInDown(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            );
+        }
+    .pulse{
+        @include pulse(
+            $duration:1s,
+            $count: infinite,
+            $delay: .3s,
+            $function: ease, 
+            $fill: both
+            );
+        }
+    
+    .flipInX{
+        @include flipInX(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            );
+        }
+    .rotateInDownRight{
+        @include rotateInDownRight(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    
+    .rotateInDownLeft{
+        @include rotateInDownLeft(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    .fadeIn{
+        @include fadeIn(
+            $duration:3s,
+            $count: 1,
+            $delay: 1s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    .jello{
+        @include jello(
+            $duration:1.5s,
+            $count: 2,
+            $delay: .3s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+    .zoomIn{
+        @include zoomIn(
+            $duration:1s,
+            $count: 1,
+            $delay: 1s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+        
+    .fadeInUp{
+        @include fadeInUp(
+            $duration:1.5s,
+            $count: 1,
+            $delay: .2s,
+            $function: ease, 
+            $fill: both
+            ); 
+        }
+        
+// *************************************
+    
+    .button-md-twitterColor,
+    .button-md-faceColor{
+        @extend .fadeInUp;
+        }
+        
+    page-home{
+        .scroll-content{
+            .icon{
+                @extend .bounceInDown;
+                }
+            .item-select,.item-datetime{
+                .icon{
+                    animation:none;
+                    }
+                }
+            .flights{
+                .serviceType{
+                    .col{
+                        &:nth-child(1){
+                            @extend .bounceInLeft;
+                            }
+                        &:nth-child(2){
+                            @extend .bounceInDown;
+                            }
+                        &:nth-child(3){
+                            @extend .bounceInRight;
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+        
+    page-hotel-details{
+        .entertainment{
+            img{
+                @extend .zoomIn;
+                }
+            }
+        }
+    page-first-checkout{
+        .desc{
+            .icon{
+                @extend .bounceInLeft;
+                }
+            }
+        }
+    page-sec-checkout{
+        .item-md{
+            .icon{
+                @extend .bounceInRight;
+                }
+            }
+        }
+    page-flights{
+        .flightItem{
+            img{
+                @extend .rotateInDownLeft;
+                }
+            .button{
+                @extend .rotateInDownRight;
+                }
+            }
+        }
+    page-profile{
+        img{
+            @extend .fadeIn;
+            }
+        }
+    page-my-trip{
+        img{
+            @extend .rotateInDownLeft;
+            }
+        .desc{
+            .icon{
+                @extend .bounceInLeft;
+                }
+            }
+        }
+
+    .firstStyle,.carStyle,.thingsStyle{
+        .imgBg{
+            @extend .flipInX;
+            }
+        }
+    .CheckBtn{
+        @extend .fadeInUp;
+        }
+    .detailsSlides{
+        @extend .bounceInDown;
+        }
+    .footer{
+        @extend .bounceInRight;
+        }
+    .likeBtn{
+        &.active{
+            @extend .pulse;
+            }
+        }
+    .header-md{
+        .icon{
+            @extend .jello;
+            }
+        } 
+
+    }
+ 

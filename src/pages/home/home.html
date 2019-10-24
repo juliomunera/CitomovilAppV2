@@ -1,17 +1,106 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        </ion-buttons>
+        <ion-title>Principal</ion-title>
+        <ion-buttons end>
+            <button ion-button>
+          <ion-icon name="search"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+
+    <ion-grid class="serviceGrid">
+        <ion-row>
+            <!-- class="serviceGrid" -->
+            <ion-col col-6>
+
+                <ion-buttons end>
+                    <button class="ContentColor" color="light" ion-button (click)="callDoorman()">
+                        <ion-icon name="call"></ion-icon>
+                        Portería
+                    </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </ion-buttons>
+            </ion-col>
+
+            <ion-col col-6>
+                <ion-buttons>
+                    <button class="ContentColor" color="light" ion-button (click)="callWhatsapp()">
+                        <ion-icon name="chatbubbles"></ion-icon>
+                        Chat
+                    </button>
+                </ion-buttons>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+    <div style="text-align: center;padding:15px; font-size: 16px;">
+        <b>Mis mensajes</b>
+    </div>
+
+    <ion-card class="ContentColor" *ngIf="personalInfo != undefined">
+        <ion-card-header>
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <b> {{personalInfo.Asunto}}</b>
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <span class="Things">
+                {{personalInfo.Comentario}}
+            </span>
+
+            <div class="right">
+                <button ion-button icon-right (click)="RedirectPersonalPage(personalInfo)">
+                    &nbsp;&nbsp;Ver&nbsp;&nbsp;
+            </button>
+
+            </div>
+
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card class="ContentColor" *ngIf="grupalInfo != undefined">
+        <ion-card-header>
+            <ion-icon name="star"></ion-icon>
+            <b> {{grupalInfo.Asunto}}</b>
+        </ion-card-header>
+
+        <ion-card-content>
+            <span class="Things">
+                    {{grupalInfo.Comentario}}
+            </span>
+            <div class="right">
+                <button ion-button icon-right (click)="RedirectCircularPage(grupalInfo)">
+                    &nbsp;&nbsp;Ver&nbsp;&nbsp;
+                </button>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="(grupalInfo == undefined && personalInfo == undefined)">
+        <ion-card-header>
+        </ion-card-header>
+
+        <ion-card-content>
+            <span class="Things">
+                    <div style="text-align: center;padding:15px; font-size: 16px;">
+                            Sin mensajes
+                    </div>
+                <br />
+            </span>
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
+
+<ion-footer>
+    <!-- <button ion-button block color="secColor">Buscar cupones</button> -->
+</ion-footer>

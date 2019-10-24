@@ -1,16 +1,603 @@
-// http://ionicframework.com/docs/theming/
+// mixin in all App
+@mixin placeholder {
+     ::-webkit-input-placeholder {
+        @content
+    }
+     ::-webkit-textarea-placeholder {
+        @content
+    }
+     :-moz-placeholder {
+        @content
+    }
+     ::-moz-placeholder {
+        @content
+    }
+     :-ms-input-placeholder {
+        @content
+    }
+}
 
+;
+@mixin whiteNormal($height, $lineNum) {
+    white-space: normal;
+    word-break: break-all;
+    max-height: $height;
+    line-height: $height / $lineNum;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+}
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+@mixin whiteNoWrap($height) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: $height;
+    line-height: $height;
+    display: inline-block;
+    width: 100%;
+}
+
+@mixin borderRadius($height) {
+    @include centerHeight($height);
+    border-radius: 50%;
+}
+
+@mixin centerHeight($height) {
+    display: inline-block;
+    height: $height;
+    width: $height;
+    line-height: $height;
+    min-height: $height;
+    text-align: center;
+}
+
+@mixin position($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    left: $left;
+    bottom: $bottom;
+}
+
+@mixin box-shadow($top, $left, $blur, $spread, $color, $inset: false) {
+    @if $inset {
+        -webkit-box-shadow: inset $top $left $blur $spread $color;
+        -moz-box-shadow: inset $top $left $blur $spread $color;
+        box-shadow: inset $top $left $blur $spread $color;
+    }
+    @else {
+        -webkit-box-shadow: $top $left $blur $spread $color;
+        -moz-box-shadow: $top $left $blur $spread $color;
+        box-shadow: $top $left $blur $spread $color;
+    }
+}
+
+// Box shadow
+%MDshadow {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+//modalBackground
+%modalBackground {
+    background: none;
+    background-color: rgba(color($colors, holderColor), .64);
+}
+
+// Padding
+[padding] {
+    padding: $mainMarg!important;
+    .scroll-content {
+        padding: $mainMarg!important;
+    }
+}
+
+[padding-left] {
+    padding-left: $mainMarg!important;
+}
+
+[padding-right] {
+    padding-right: $mainMarg!important;
+}
+
+//Style of img Background
+.imgBg {
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat!important;
+    background-position: center center!important;
+}
+
+.alignItem {
+    -webkit-align-items: initial;
+    -ms-flex-align: initial;
+    align-items: initial;
+}
+
+.button-md {
+    &.button-block-md {
+        margin: 0px;
+        padding: 0px $mainMarg;
+        border-radius: $mainRadius;
+        @extend %MDshadow;
+        .button-inner {
+            color: #fff;
+            overflow: hidden;
+            text-transform: initial;
+        }
+    }
+}
+
+// App Footer 
+.footer-md {
+    &::before {
+        position: initial;
+        background-image: none;
+    }
+}
+
+// App Header
+.header-md {
+    &::after {
+        position: initial;
+        background-image: none;
+    }
+    .toolbar-md {
+        padding: $toolbarPadding;
+    }
+    .toolbar-background-md {
+        background: none;
+    }
+    ion-buttons {
+        margin: 0px;
+    }
+    .bar-button {
+        margin: 0px;
+        min-width: $mainHeight - $toolbarPadding*2;
+        width: $mainHeight - $toolbarPadding*2;
+        height: $mainHeight - $toolbarPadding*2;
+        .button-inner {
+            color: #fff;
+            .icon {
+                font-size: $toolbarIconBTN;
+            }
+        }
+    }
+    .bar-button-menutoggle {
+        display: inline-block!important;
+    }
+    .toolbar-title-md {
+        color: #fff;
+    }
+    .bar-buttons-md {
+        &[start] {
+            -webkit-order: 1;
+            -ms-flex-order: 1;
+            order: 1;
+        }
+    }
+}
+
+// style for list and items in all app
+.list-md {
+    margin: 0px;
+    .item-md {
+        padding-left: 0px;
+        &.item-block {
+            .item-inner {
+                border: none!important;
+                padding-right: 0px;
+                margin-left: 0px;
+                .label-md {
+                    margin: 0px;
+                }
+            }
+        }
+    }
+}
+
+// Content
+.content-md {
+    background-color: color($colors, backPageColor);
+}
+
+// Select Alert
+.select-alert {
+    .alert-head {
+        padding: $mainMarg;
+        background-color: color($colors, secColor);
+        .alert-title {
+            @extend h4;
+            @include whiteNormal(20px, 1);
+            margin: 0px;
+            text-align: center;
+        }
+    }
+    &.alert-md {
+        [aria-checked=true] {
+            .alert-radio-label {
+                color: color($colors, grayColor);
+            }
+            .alert-radio-icon {
+                border-color: color($colors, secColor);
+            }
+            .alert-radio-inner {
+                background-color: color($colors, mainColor);
+            }
+        }
+        .alert-button-group {
+            padding: $mainMarg;
+        }
+        .alert-button {
+            width:calc(50% - #{$mainMarg}/2);
+            margin: 0px 0px 0px $mainMarg/2;
+            background: color($colors, secColor);
+            border-radius: 0px;
+            &:first-of-type {
+                margin: 0px $mainMarg/2 0px 0px;
+                background: color($colors, mainColor);
+            }
+            .button-inner {
+                -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                color: #fff;
+            }
+        }
+        .alert-radio-group {
+            border-bottom: none;
+        }
+        .alert-wrapper {
+            border-radius: $mainRadius;
+            overflow: hidden;
+        }
+    }
+}
+
+// Like Button
+.likeBtn {
+    @include centerHeight($likeBtnHeight);
+    font-size: 2.5rem;
+    color: color($colors, grayColor);
+    &.active {
+        color: color($colors, mainColor)!important;
+    }
+}
+
+// Custom Icons
+[class^="booking-"]:before,
+[class*=" booking-"]:before {
+    width: auto!important;
+    opacity: 1;
+    margin: 0px!important;
+}
+
+ion-menu {
+    &.show-menu {
+        background-color: rgba(255, 255, 255, 0.5);
+        .menu-inner {
+            background: none;
+        }
+        .content-md {
+            background: none;
+        }
+        .header-md {
+            background-color: #fff;
+            .bar-buttons-md {
+                .bar-button {
+                    width: auto;
+                    min-width: 34px;
+                    .button-inner {
+                        color: #000;
+                    }
+                }
+                &[end] {
+                    .bar-button {
+                        .icon-md {
+                            font-size: 2rem;
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+        }
+        .list-md {
+            @extend %MDshadow;
+            .icon {
+                color: color($colors, mainColor);
+                font-size: 2.2rem;
+                margin: 0px $mainMarg 0px 0px;
+            }
+            .item-md {
+                border-bottom: 1px solid color($colors, grayColor);
+                padding: 0px $mainMarg;
+                &:last-of-type {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
+
+// Main App Form
+// Change style Effect of checkout Page   , setting and edit edit-info Page
+.appForm {
+    .list-md {
+        display: inline-block;
+        width: 100%;
+        .item-md {
+            height: $appFormInputHeight;
+            padding: $appItemPadding;
+            background: none;
+            border-bottom: 1px solid color($colors, mainColor);
+            margin-bottom: $mainMarg;
+            &.item-block {
+                min-height: initial;
+            }
+            &:last-of-type {
+                margin-bottom: 0px;
+            }
+            &.input-has-focus {
+                .item-inner {
+                    box-shadow: none!important;
+                }
+            }
+            .icon {
+                font-size: $appFormIconSize;
+                height: $appFormIconHeight - $appItemPadding*2;
+                line-height: $appFormIconHeight - $appItemPadding*2;
+                top: $appItemPadding;
+                color: color($colors, secColor);
+                min-width: initial!important;
+                &[item-left] {
+                    margin: 0px;
+                    margin-right: $appItemPadding*2;
+                }
+            }
+            .item-inner {
+                margin: 0px;
+                min-height: $appFormInputHeight - $appItemPadding*2;
+            }
+            .text-input-md {
+                margin: 0px;
+                width: 100%;
+                height: $appFormInputHeight - $appItemPadding*2;
+                font-size: $mainFont;
+                transform: none!important;
+            }
+            &.input-has-focus {
+                border-bottom-color: color($colors, mainColor);
+                box-shadow: none;
+            }
+            &.item-select {
+                .label-md {
+                    font-size: $mainFont;
+                    color: #000;
+                    height: 20px;
+                    line-height: 20px;
+                }
+                .select-md {
+                    padding: 0px;
+                }
+                .select-text {
+                    font-size: $mainFont;
+                    color: color($colors, grayColor);
+                    height: 20px;
+                    line-height: 20px;
+                }
+                .select-icon {
+                    width: 10px;
+                    height: 20px;
+                    .select-icon-inner {
+                        left: 0px;
+                        color: color($colors, mainColor);
+                    }
+                }
+            }
+            &.item-checkbox {
+                direction: rtl;
+                .item-inner {
+                    text-align: left;
+                    .label-md {
+                        font-size: $mainFont;
+                        direction: ltr;
+                    }
+                }
+                .checkbox-md {
+                    margin: 0px 0px 0px $mainMarg;
+                }
+            }
+        }
+        .list-header-md {
+            &.item-md {
+                margin-top: 0px;
+                padding: 0px;
+                border-top: 0px;
+                min-height: 0px;
+                height: 20px;
+                .item-inner {
+                    min-height: 20px;
+                }
+                .input-wrapper {
+                    height: 20px;
+                }
+                .label-md {
+                    margin: 0px;
+                    color: #000;
+                    font-weight: 500;
+                }
+            }
+        }
+        &[radio-group] {
+            .item-radio {
+                margin-bottom: 0px;
+                padding: 0px;
+                border-bottom: 1px solid color($colors, grayColor);
+                &:first-child {
+                    border-bottom: none;
+                }
+                &:last-of-type {
+                    border-bottom: none;
+                }
+                .label-md {
+                    font-size: $mainFont - .1;
+                    padding-right: $mainMarg;
+                }
+            }
+        }
+    }
+}
+
+// Sec App Form
+.otherForm {
+    .list-md {
+        .item-md {
+            &.item-label-stacked {
+                align-items: flex-end;
+                padding: $otherFormPaddingTop 0px;
+                border-bottom: $otherFormBorderSize solid color($colors, holderColor);
+                box-shadow: none !important;
+                &:last-of-type {
+                    border-bottom: none;
+                }
+                &:first-of-type {
+                    padding-top: 0px;
+                }
+                .input-wrapper {
+                    padding-right: 25%;
+                }
+                .text-input-md {
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 0px;
+                    height: $otherFormInputHeight;
+                    border-bottom: 1px solid color($colors, grayColor);
+                    color: color($colors, grayColor);
+                    font-size: $mainFont - .1;
+                }
+                .icon {
+                    &[item-right] {
+                        color: color($colors, grayColor);
+                        font-size: 2.2rem;
+                        margin: 0px;
+                        @include centerHeight($otherFormInputHeight);
+                        text-align: right;
+                    }
+                }
+                &.input-has-focus {
+                    .label-md {
+                        &[stacked] {
+                            color: #000;
+                        }
+                    }
+                    .item-inner {
+                        border-bottom: none;
+                        box-shadow: none;
+                    }
+                }
+                .datetime-md {
+                    padding: 0px;
+                    .datetime-text {
+                        height: $otherFormInputHeight;
+                        line-height: $otherFormInputHeight;
+                        border-bottom: 1px solid color($colors, grayColor);
+                        color: color($colors, grayColor);
+                    }
+                }
+            }
+            &.item-checkbox {
+                align-items: flex-start;
+                padding: $mainMarg 0px;
+                direction: rtl;
+                .item-inner {
+                    direction: ltr;
+                }
+                .checkbox-md {
+                    margin: 0px;
+                }
+                .desc {
+                    @include whiteNormal(24px, 2);
+                    display: block;
+                    margin: $mainMarg 0px;
+                    color: color($colors, grayColor);
+                }
+            }
+        }
+    }
+}
+
+// Modal in large Screen
+ion-modal {
+    .modal-wrapper {
+        width: 100%!important;
+        height: 100%!important;
+        position: initial!important;
+    }
+    ion-backdrop {
+        opacity: 0!important;
+    }
+}
+
+// change effect in meny pages of application
+.content-md {
+    //found in meny pages
+    &.mainStyle {
+        background-color: color($colors, backPageColor);
+        .scroll-content {
+            padding-top: $marginServiceGridTopValue - $mainMarg;
+            margin-bottom: 0px!important;
+            >.grid {
+                padding: $mainMarg/2;
+                .col {
+                    padding: $mainMarg/2;
+                }
+            }
+        }
+    }
+}
+
+// picker tooler style
+.picker-md {
+    .picker-toolbar {
+        .picker-toolbar-button {
+            width: 50%;
+            text-align: center;
+            background-color: color($colors, mainColor);
+            .picker-button {
+                width: 100%;
+                border-radius: 0px;
+                color: #fff;
+            }
+            &:last-of-type {
+                background-color: color($colors, secColor);
+            }
+        }
+    }
+    .picker-opt {
+        &.picker-opt-selected {
+            color: color($colors, mainColor)!important;
+        }
+    }
+}
+
+// Popover style
+.popover-content {
+    left: auto!important;
+    right: $mainMarg;
+    top: $toolbar-md-height!important;
+    border-radius: $mainRadius!important;
+    width: auto!important;
+    min-width: 100px;
+    max-width: 250px!important;
+}
+
+// PlatForm Ios
+.platform-ios {
+    .popover-content {
+        top: $mainHeight + 20!important;
+    }
+    .details {
+        .likeBtn {
+            margin-top: 20px!important;
+        }
+    }
+}

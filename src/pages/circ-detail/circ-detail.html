@@ -1,0 +1,48 @@
+<!--
+  Generated template for the CircDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Detalle Circular</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card>
+        <img src='../../assets/img/004.png' />
+
+        <ion-card-header>
+
+
+        </ion-card-header>
+
+        <ion-card-content class="ContentColor">
+            <ion-card-title>
+                <ion-icon name="star"> </ion-icon>
+                <b> {{groupItem.Asunto}}</b>
+            </ion-card-title>
+            <p>Fecha: {{groupItem.Fecha}}</p>
+            <br/>
+            <span class="Things">
+                {{groupItem.Comentario}}
+            </span>
+            <br/><br/>
+            <a *ngIf="groupItem.Adjunto.length > 0" class="item" href="#" (click)='openFile()'>
+                <ion-icon name="attach"></ion-icon> Ver adjunto<br/><br/></a>
+
+            <button ion-button icon-right (click)="goBack()">
+                Aceptar
+            </button>
+
+        </ion-card-content>
+
+    </ion-card>
+
+</ion-content>

@@ -1,17 +1,65 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Contact
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            Mis Mensajes
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+
+    <ion-card>
+
+        <ion-card-header>
+            <b>Mesajes solo para mí</b>
+        </ion-card-header>
+
+        <ion-card-content *ngIf='listSingleInfo !== undefined && listSingleInfo.resultados !== undefined && listSingleInfo.resultados.length > 0;else other_single'>
+            <ion-list *ngFor="let item of listSingleInfo.resultados">
+                <ion-item-divider class="ContentColor" (click)="RedirectPersonalPage(item, -1)">
+                    <ion-icon name="mail" item-start *ngIf="item.ComunicacionLeida === 'N'"></ion-icon>
+                    <ion-icon name="checkmark-circle-outline" item-start *ngIf="item.ComunicacionLeida === 'S'"></ion-icon>
+                    <div>{{item.Asunto}}</div>
+                    <div style="font-size:12px">{{item.Fecha | date: "yyyy/MM/dd HH:mm"}}</div>
+                </ion-item-divider>
+            </ion-list>
+        </ion-card-content>
+
+        <ng-template #other_single>
+            <ion-card-content>
+                <ion-list>
+                    <div><br/>Sin contenido<br/></div>
+                </ion-list>
+            </ion-card-content>
+        </ng-template>
+    </ion-card>
+
+
+    <ion-card>
+
+        <ion-card-header>
+            <b>Mesajes para todos</b>
+        </ion-card-header>
+
+        <ion-card-content *ngIf='listGrupalInfo !== undefined && listGrupalInfo.resultados !== undefined && listGrupalInfo.resultados.length > 0;else other_grupal'>
+            <ion-list *ngFor="let item of listGrupalInfo.resultados">
+                <ion-item-divider class="ContentColor" (click)="RedirectCircularPage(item, -1)">
+                    <ion-icon name="mail" item-start *ngIf="item.ComunicacionLeida === 'N'"></ion-icon>
+                    <ion-icon name="checkmark-circle-outline" item-start *ngIf="item.ComunicacionLeida === 'S'"></ion-icon>
+                    <div>{{item.Asunto}}</div>
+                    <div style="font-size:12px">{{item.Fecha | date: "yyyy/MM/dd HH:mm"}}</div>
+                </ion-item-divider>
+            </ion-list>
+        </ion-card-content>
+
+        <ng-template #other_grupal>
+            <ion-card-content>
+                <ion-list>
+                    <div><br/>Sin contenido<br/></div>
+                </ion-list>
+            </ion-card-content>
+        </ng-template>
+
+    </ion-card>
+
 </ion-content>

@@ -1,3 +1,302 @@
 page-home {
+    .ratingGrid {
+        .col {
+            height: 25px;
+            h4 {
+                line-height: 24px;
+            }
+        }
+    }
+    .desc {
+        border-top: 1px solid color($colors, grayColor);
+        border-bottom: 1px solid color($colors, grayColor);
+    }
+    .scroll-content {
+        padding-bottom: 0px!important;
+    }
+    .footer {
+        padding: $mainMarg;
+        .button {
+            &.button-block {
+                width: 85%;
+                margin: auto;
+            }
+        }
+    }
+}
 
+.right {
+    float: right;
+}
+
+.ContentColor {
+    color: #5c5a5a;
+}
+
+.content-ios {
+    background-color: color($colors, mainColor);
+    background-image: url('../../assets/img/001.png');
+    background-position: top left;
+    background-size: 100% $imgInBackHeight;
+    background-repeat: no-repeat;
+}
+
+.content-md {
+    background-color: color($colors, mainColor);
+    background-image: url('../../assets/img/001.png');
+    background-position: top left;
+    background-size: 100% $imgInBackHeight;
+    background-repeat: no-repeat;
+}
+
+.serviceDashboard {
+    background: #eeeeee;
+    text-align: left;
+    //padding: $mainMarg/2 $mainMarg;
+    padding: 15px;
+    max-width:calc(100% - #{$mainMarg}*2);
+    margin-top: 15px;
+    border-radius: $mainRadius;
+    overflow: hidden;
+}
+
+.serviceGrid {
+    background: #fff;
+    text-align: left;
+    padding: $mainMarg/2 $mainMarg;
+    max-width:calc(100% - #{$mainMarg}*2);
+    margin-top: $marginServiceGridTopValue;
+    border-radius: $mainRadius;
+    overflow: hidden;
+    @extend %MDshadow;
+    .col {
+        padding: 0px;
+        border-right: 1px solid color($colors, grayColor);
+        border-bottom: 1px solid color($colors, grayColor);
+        height: $spanInServiceGridHeight;
+        span {
+            @include whiteNoWrap($spanInServiceGridHeight);
+            margin: 0px;
+            @extend h5;
+            padding: 0px $mainMarg 0px $mainMarg/2;
+            color: color($colors, grayColor);
+            &.active {
+                color: #000;
+                .icon {
+                    color: #000;
+                }
+            }
+        }
+        $z: $spanInServiceGridHeight - $mainMarg/2;
+        $zz: $spanInServiceGridHeight+$mainMarg/2;
+        &:nth-child(1) {
+            span {
+                line-height: $z;
+            }
+        }
+        &:nth-child(2) {
+            border-right: none;
+            span {
+                padding: 0px $mainMarg/2 0px $mainMarg;
+                line-height: $z;
+            }
+        }
+        &:nth-child(3) {
+            border-bottom: none;
+            span {
+                line-height: $zz;
+            }
+        }
+        &:nth-child(4) {
+            border-bottom: none;
+            border-right: none;
+            span {
+                padding: 0px $mainMarg/2 0px $mainMarg;
+                line-height: $zz;
+            }
+        }
+    }
+    .icon {
+        width: 34px;
+        font-size: 1.6rem;
+        color: color($colors, grayColor);
+    }
+}
+
+// hotels Style and other parts
+.tripInfo {
+    >h4 {
+        padding: 0px $mainMarg!important;
+        margin-top: 3*$mainMarg!important;
+    }
+    >.appForm {
+        padding: $mainMarg;
+    }
+    h4 {
+        color: #000;
+        margin: 0px;
+        width: 100%;
+        @include whiteNormal(20px,
+        1);
+        padding: 0px $mainMarg/2;
+    }
+    .tit {
+        @extend h4;
+        font-weight: bold;
+    }
+    .appForm {
+        .list-md {
+            .item-md {
+                border-bottom-color: #fff;
+                padding: 0px;
+                height: 34px;
+                @include placeholder {
+                    color: #fff!important;
+                }
+                &.input-has-focus {
+                    border-bottom-color: #fff;
+                }
+                .text-input-md {
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .grid {
+        padding: $mainMarg/2;
+        .row {
+            margin-top: $mainMarg;
+            &:first-of-type {
+                margin-top: 0px;
+            }
+        }
+        .col {
+            padding: $mainMarg/2;
+        }
+    }
+    .label-md {
+        display: none;
+    }
+    .checkGrid {
+        text-align: left;
+        padding: $mainMarg/2;
+        .col {
+            @include box-shadow(0px,
+            150px,
+            5px,
+            0px,
+            rgba(0,
+            0,
+            0,
+            0.3),
+            inset);
+            padding: $mainMarg*2 $mainMarg $mainMarg/2;
+            &:first-of-type {
+                border-top-left-radius: $mainRadius;
+                border-bottom-left-radius: $mainRadius;
+            }
+            &:last-of-type {
+                border-top-right-radius: $mainRadius;
+                border-bottom-right-radius: $mainRadius;
+            }
+        }
+        .item-datetime {
+            padding: 0px;
+            display: inline-block;
+            max-width: 100%;
+            width: auto;
+            background: none;
+            -webkit-align-items: flex-end;
+            -ms-flex-align: flex-end;
+            align-items: flex-end;
+            .datetime-text {
+                color: #fff;
+            }
+            .datetime-md {
+                padding: 0px;
+                margin: auto;
+            }
+            .item-inner {
+                padding: 0px;
+                border-bottom: none;
+            }
+            .icon {
+                &[item-right] {
+                    margin: 0px;
+                    min-height: auto;
+                    font-size: 2.2rem;
+                    width: 25px;
+                    text-align: center;
+                    line-height: 40px;
+                }
+            }
+        }
+    }
+    .family {
+        margin-top: $mainMarg;
+        h4 {
+            padding: 0px $mainMarg/2;
+        }
+        .item-select {
+            background: none;
+            padding: 0px;
+            .item-inner {
+                padding: 0px;
+                border-bottom: none;
+            }
+            .select-text {
+                color: #fff;
+                font-size: $mainFont;
+            }
+            .select-md {
+                padding: 0px;
+                width: 130px;
+                max-width: 95%;
+                .select-icon {
+                    width: 20px;
+                    .select-icon-inner {
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+    //Flights style
+    &.flights {
+        .serviceType {
+            .button {
+                height: 34px;
+                &.active {
+                    background-color: color($colors, grayColor);
+                }
+            }
+        }
+        .flyingPlace {
+            .col {
+                padding: $mainMarg*1.5 $mainMarg/2 !important;
+                &:first-of-type {
+                    border-right: 1px solid #000;
+                }
+                .appForm {
+                    .icon {
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+    // Cars Style
+    &.cars {
+        @extend .flights;
+        .row {
+            margin-top: $mainMarg!important;
+        }
+        .tit {
+            padding: 0px;
+        }
+    }
+}
+
+.item-cover {
+    padding: 0px;
 }
