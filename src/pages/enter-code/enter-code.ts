@@ -134,7 +134,7 @@ export class EnterCodePage {
 
       this.authProvider.sendPhoneNumber(this.phoneNumber)
       .then(data => {
-   
+  
         this.showPhoneCard = true;
         this.showCodeCard = false;
 

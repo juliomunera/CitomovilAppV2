@@ -82,7 +82,7 @@ export class ContactPage {
     
       loading.present();
 
-      this.comunicationService.markMessages(per.IdComunicacion)
+      this.comunicationService.markMessages(per.IdComunicacion, 'I')
       .then(data => {
 
           this.events.publish('msgCount:updated', total);
@@ -119,7 +119,7 @@ export class ContactPage {
     
       loading.present();
 
-      this.comunicationService.markMessages(grup.IdComunicacion)
+      this.comunicationService.markMessages(grup.IdComunicacion, 'G')
       .then(data => {
 
           this.events.publish('msgCount:updated', total);

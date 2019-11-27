@@ -186,7 +186,7 @@ export class ComunicationServiceProvider {
   }
 
 
-  markMessages(codigoComunicacion : string) {
+  markMessages(codigoComunicacion : string, typeNotification : string) {
     let postData = {
         "numeroMovil": this.phoneNumber,
         "codigoComunicacion": codigoComunicacion,
@@ -194,7 +194,14 @@ export class ComunicationServiceProvider {
     }  
 
     return new Promise((resolve, reject) => {
-      this.http.post(this.configProvider.ServerURL + this.configProvider.MarkMessageURL + this.configProvider.generateUUID(), 
+      
+      let endpointUrl : string;
+      if (typeNotification === 'I')
+        endpointUrl = this.configProvider.MarkMessageURL;
+      else 
+        endpointUrl = this.configProvider.MarkMessageGURL;;
+
+      this.http.post(this.configProvider.ServerURL + endpointUrl + this.configProvider.generateUUID(), 
         postData, { responseType: 'json' }  ) 
         .timeout(10000)
         .subscribe(res => {

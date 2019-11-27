@@ -39,6 +39,8 @@ export class HomePage {
 
     this.couCount = 0;
     this.msgCount = 0;
+
+    this.resetCellphone();
   
     // https://dev.to/hitman666/how-to-make-money-with-google-admob-ads-in-ionic-framework-3
     // https://forum.ionicframework.com/t/how-to-pass-data-to-another-page/119413/2

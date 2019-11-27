@@ -30,6 +30,7 @@ export class ConfigProvider {
   public AllSingleMessageURL : string = '/api2019/comunicaciones/individuales?codigoAPI=779e0ea2-bb03-4a31-98a1-24bceea93946&idSolicitud=';
   public TotalUnreadMsgURL : string = '/api2019/comunicaciones/totales?codigoAPI=779e0ea2-bb03-4a31-98a1-24bceea93946&idSolicitud=';
   public MarkMessageURL : string = '/api2019/comunicaciones/individuales/marcacion?codigoAPI=779e0ea2-bb03-4a31-98a1-24bceea93946&idSolicitud=';
+  public MarkMessageGURL : string = '/api2019/comunicaciones/grupales/marcacion?codigoAPI=779e0ea2-bb03-4a31-98a1-24bceea93946&idSolicitud=';
 
   constructor(private device: Device) {
   }
