@@ -49,15 +49,15 @@ export class MyApp {
 
        this.oneSignal.getIds().then((id) => {
         console.log(id);
-        let alert = this.alertCtrl.create({
-            title: 'Ya tengo el playerId',
-            message: JSON.stringify(id),
-            buttons: [{
-              text: 'Ok',
-              role: 'ok'
-            }]
-          });
-          alert.present();
+        // let alert = this.alertCtrl.create({
+        //     title: 'Ya tengo el playerId',
+        //     message: JSON.stringify(id),
+        //     buttons: [{
+        //       text: 'Ok',
+        //       role: 'ok'
+        //     }]
+        //   });
+        //   alert.present();
       });
        
        this.oneSignal.endInit();

@@ -16,7 +16,7 @@ import { CouponListPage } from '../pages/coupon-list/coupon-list';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
-// import { CallNumber } from '@ionic-native/call-number';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { Device } from '@ionic-native/device/ngx';
@@ -68,7 +68,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
     StatusBar,
     SplashScreen,
     OneSignal,
-    // CallNumber,
+    CallNumber,
     Device,
     Uid,
     SMS,

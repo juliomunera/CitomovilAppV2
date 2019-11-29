@@ -44,6 +44,19 @@ export class EnterCodePage {
 
   }
 
+
+  call2(){
+    window.open(`tel:0344535862`, '_system');
+  }
+
+  abrirWS1(){
+    window.open('https://api.whatsapp.com/send?phone=+573154444822&amp;text=Hola,', '_system', 'location=yes'); return false;
+  }
+
+  abrirWS2(){
+    window.open(`whatsapp://send?text=&phone=+573154444822&amp;abid=+573154444822`, '_system', 'location=yes'); return false;
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad EnterCodePage');
   }
@@ -70,6 +83,9 @@ export class EnterCodePage {
       this.authobj = <AuthEntity>data;
       if(this.authobj !== null && this.authobj.excepcion !== undefined && this.authobj.excepcion.codigo === 0 && this.authobj.totalInstancias > 0)
       {
+
+        console.log(this.authobj.resultados);
+
         this.storage.set('CodeNumber', this.codeNumber);
         this.storage.set('ApplicationID', this.authobj.resultados[0].CodigoAplicacion);
         this.storage.set('ClientID', this.authobj.resultados[0].CodigoCliente);
