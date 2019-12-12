@@ -16,7 +16,7 @@ import { CouponListPage } from '../pages/coupon-list/coupon-list';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
-import { CallNumber } from '@ionic-native/call-number/ngx';
+// import { CallNumber } from '@ionic-native/call-number';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { Device } from '@ionic-native/device/ngx';
@@ -30,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfigProvider } from '../providers/config/config';
 import { ComunicationServiceProvider } from '../providers/comunication-service/comunication-service';
 
-import { OneSignal } from '@ionic-native/onesignal/ngx';
+// import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @NgModule({
   declarations: [
@@ -67,8 +67,8 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
   providers: [
     StatusBar,
     SplashScreen,
-    OneSignal,
-    CallNumber,
+    // OneSignal,
+    // CallNumber,
     Device,
     Uid,
     SMS,

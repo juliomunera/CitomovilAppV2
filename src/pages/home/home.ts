@@ -11,7 +11,7 @@ import { StorageHelper } from '../../helpers/storage-helper';
 import { LastComEntity, Valores, PostEntity, ListComEntity, TotalMsgEntity } from '../../entities/LastComEntity';
 import { ComunicationServiceProvider } from '../../providers/comunication-service/comunication-service';
 
-import { CallNumber } from '@ionic-native/call-number/ngx';
+//import { CallNumber } from '@ionic-native/call-number';
 
 @Component({
   selector: 'page-home',
@@ -34,12 +34,13 @@ export class HomePage {
   constructor(public navCtrl: NavController, platform: Platform, 
               public alertCtrl: AlertController, public modalCtrl : ModalController, 
               public storage: StorageHelper, private comunicationService : ComunicationServiceProvider,
-              public events: Events, public loadingCtrl: LoadingController,
-              private callNumber: CallNumber
+              public events: Events, public loadingCtrl: LoadingController //, private callNumber: CallNumber
               ) {
 
     this.couCount = 0;
     this.msgCount = 0;
+
+    this.resetCellphone();
   
     // https://dev.to/hitman666/how-to-make-money-with-google-admob-ads-in-ionic-framework-3
     // https://forum.ionicframework.com/t/how-to-pass-data-to-another-page/119413/2
@@ -67,55 +68,29 @@ export class HomePage {
           this.doormanPhone = data;
         }     
       );
-  }
-
-  openWhatsapp(){
-    if (this.doormanPhone === undefined || this.doormanPhone === null || this.doormanPhone.length === 0) {
-      this.storage.get('DoormanPhoneNumber')
-        .then(
-          (data) => {
-            this.doormanPhone = data;
-          }     
-        );
-
-        if (this.doormanPhone === undefined || this.doormanPhone === null || this.doormanPhone.length === 0) {
-          this.showAlert('Información', 'El teléfono del portero no se encuentra configurado.');
-          return;
-        }
-    }
-
-    window.open(`https://api.whatsapp.com/send?phone=${this.doormanPhone}&text=Hola,`, '_system', 'location=yes'); return false;
-  }
-
-  callSimple(){
-    if (this.doormanPhone === undefined || this.doormanPhone === null || this.doormanPhone.length === 0) {
-      this.storage.get('DoormanPhoneNumber')
-        .then(
-          (data) => {
-            this.doormanPhone = data;
-          }     
-        );
-
-        if (this.doormanPhone === undefined || this.doormanPhone === null || this.doormanPhone.length === 0) {
-          this.showAlert('Información', 'El teléfono del portero no se encuentra configurado.');
-          return;
-        }
-    }
-    
-    window.open(`tel:${this.doormanPhone}`, '_system');
+      
+ 
   }
 
   callDoorman(){
     if (this.doormanPhone.length === 0)
       return;
 
-    this.callNumber.callNumber(this.doormanPhone, true)
-    .then(res => console.log('Marcando...', res))
-    .catch(err => {
-      console.log('Error al realizar la marcación: ', err);
-      alert(err.message);
-       }
-      );
+    // this.callNumber.callNumber(this.doormanPhone, true)
+    // .then(res => console.log('Launched dialer!', res))
+    // .catch(err => console.log('Error launching dialer', err));
+
+/*
+      this.callNumber.isCallSupported()
+      .then(function (response) {
+          if (response == true) {
+            this.callNumber.callNumber(this.doormanPhone, true)
+            .then(() => console.log('Marcando!'))
+            .catch(() => console.log('Error al marcar'));
+          }
+      });
+
+*/
   }
 
   callWhatsapp(){
@@ -123,8 +98,7 @@ export class HomePage {
       return;
 
       try{
-
-        window.open(`whatsapp://send?text=&phone=+57${this.doormanPhone}&abid=+57${this.doormanPhone}`, '_system', 'location=yes');
+        window.open(`whatsapp://send?text=&phone=+57${this.doormanPhone}&abid=+57${this.doormanPhone}`);
       }catch(error)
       {
         alert(error);

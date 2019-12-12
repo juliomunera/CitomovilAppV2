@@ -8,6 +8,8 @@ import 'rxjs/add/operator/delay';
 
 import { ConfigProvider } from '../../providers/config/config';
 import { AuthEntity } from '../../entities/authEntity';
+import { stringify } from '@angular/core/src/util';
+// import { config } from 'rxjs';
 
 @Injectable()
 export class AuthProvider {
@@ -34,7 +36,7 @@ export class AuthProvider {
             postData, { responseType: 'json' }  ) 
         .timeout(5000)
         .subscribe(res => {
-   
+            
             resolve(res);
         }, (err) => {
 
@@ -51,32 +53,20 @@ export class AuthProvider {
             "credencial": this.configProvider.getUUIDDevice()
     }
 
+    console.log(JSON.stringify(postData));
     return new Promise((resolve, reject) => {
       this.http.post(this.configProvider.ServerURL + this.configProvider.SmsURL + this.configProvider.generateUUID(), 
-      JSON.stringify(postData), { responseType: 'text' }  ) 
+        postData, { responseType: 'json' }  ) 
         .timeout(5000)
         .subscribe(res => {
-           
+           console.log('ingreso');
+           console.log(res);  
             resolve(res);
         }, (err) => {
 
             reject(err);
         });
     });
-
-    // console.log(JSON.stringify(postData));
-    // return new Promise((resolve, reject) => {
-    //   this.http.post(this.configProvider.ServerURL + this.configProvider.SmsURL + this.configProvider.generateUUID(), 
-    //     postData, { responseType: 'json' }  ) 
-    //     .timeout(5000)
-    //     .subscribe(res => {
-           
-    //         resolve(res);
-    //     }, (err) => {
-
-    //         reject(err);
-    //     });
-    // });
 
   }
 
