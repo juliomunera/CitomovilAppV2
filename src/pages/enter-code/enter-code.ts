@@ -1,11 +1,12 @@
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ViewController } from 'ionic-angular';
-
-import { StorageHelper } from '../../helpers/storage-helper';
 import { AuthProvider } from '../../providers/auth/auth';
-
 import { AuthEntity } from '../../entities/authEntity';
 import { ConfigProvider } from '../../providers/config/config';
+import { DatabaseProvider } from '../../providers/database/database';
+import { StorageHelper } from '../../helpers/storage-helper';
+import { StorageEntity } from '../../entities/storageEntity';
 
 @IonicPage()
 @Component({
@@ -14,34 +15,28 @@ import { ConfigProvider } from '../../providers/config/config';
 })
 export class EnterCodePage {
 
-  public phoneNumber: string = "";
+  public phoneNumber: any = "";
   public codeNumber: string = "";
   public showPhoneCard: boolean = false;
   public showCodeCard = true;
 
   authobj : AuthEntity;
-
-  users: any;
+  users : any;
+  result : any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    private alertCtrl : AlertController, private storage: StorageHelper,
+    private alertCtrl : AlertController, 
     public loadingCtrl : LoadingController, private authProvider : AuthProvider,
     private configProvider: ConfigProvider,
-    public viewCtrl : ViewController
+    public database : DatabaseProvider,
+    public viewCtrl : ViewController,
+    public storageInfo : StorageEntity,
+    public storageHelper : StorageHelper
     ) {
-      
-      this.storage.get('PhoneNumber')
-      .then(
-        (data) => {
-            if(data !== null)
-            {
-              this.showPhoneCard = true;
-              this.showCodeCard = false;
-              this.phoneNumber = data;
-            }
-        }
-      )
 
+    }
+
+  ngOnInit() {
   }
 
   ionViewDidLoad() {
@@ -49,14 +44,13 @@ export class EnterCodePage {
   }
 
   codeValidate(){
+
     if (this.codeNumber.trim().length === 0)
     {
       this.showAlert('Información', 
         'Debe ingresar el código de verificación');
       return;
     }
-
-    this.storage.set('CodeNumber', this.codeNumber);
     
     let loading = this.loadingCtrl.create({
       content: 'Cargando la información...'
@@ -70,24 +64,44 @@ export class EnterCodePage {
       this.authobj = <AuthEntity>data;
       if(this.authobj !== null && this.authobj.excepcion !== undefined && this.authobj.excepcion.codigo === 0 && this.authobj.totalInstancias > 0)
       {
-        this.storage.set('CodeNumber', this.codeNumber);
-        this.storage.set('ApplicationID', this.authobj.resultados[0].CodigoAplicacion);
-        this.storage.set('ClientID', this.authobj.resultados[0].CodigoCliente);
-        this.storage.set('DeviceID', this.authobj.resultados[0].CodigoDispositivo);
-        this.storage.set('ProjectID', this.authobj.resultados[0].CodigoProyecto);
-        this.storage.set('DoormanPhoneNumber', this.authobj.resultados[0].NumeroMovilPortero);
-        this.storage.set('Token', this.authobj.token);
 
-        let resultData = { 
-          "phoneNumber": this.authobj.resultados[0].NumeroMovil, 
-          "tokenCode": this.authobj.token, 
-          "projectCode": this.authobj.resultados[0].CodigoProyecto, 
-          "clientCode": this.authobj.resultados[0].CodigoCliente, 
-          "appCode": this.authobj.resultados[0].CodigoAplicacion 
-        };
+        let info : StorageEntity;
+        info = new StorageEntity();
 
-        this.viewCtrl.dismiss(resultData);  
-              
+        let phone = this.phoneNumber;
+        if (phone === undefined || phone === '')
+          phone = this.authobj.resultados[0].NumeroMovil;
+
+        info.CodeNumber = this.codeNumber;
+        info.ApplicationID = this.authobj.resultados[0].CodigoAplicacion;
+        info.ClientId = this.authobj.resultados[0].CodigoCliente;
+        info.DeviceID =  this.authobj.resultados[0].CodigoDispositivo;
+        info.ProjectID = this.authobj.resultados[0].CodigoProyecto;
+        info.DoormanPhoneNumber = this.authobj.resultados[0].NumeroMovilPortero;
+        info.Token = this.authobj.token;
+        info.PhoneNumber = phone;
+
+        console.log(info);
+
+        this.storageHelper.updateStoreData(info)
+        .then(()=> {
+
+          let resultData = { 
+            "ApplicationId": this.authobj.resultados[0].CodigoAplicacion,
+            "phoneNumber": phone, 
+            "tokenCode": this.authobj.token, 
+            "projectCode": this.authobj.resultados[0].CodigoProyecto, 
+            "clientCode": this.authobj.resultados[0].CodigoCliente, 
+            "appCode": this.authobj.resultados[0].CodigoAplicacion,
+            "doormanPhoneNumber" : this.authobj.resultados[0].NumeroMovilPortero
+          };
+  
+          this.viewCtrl.dismiss(resultData);  
+        })
+        .catch(e=> {
+          this.showAlert('Error', 
+          'Ups!, algo no anda bien. Intenta de nuevo.');
+        });
 
       }else if(this.authobj.excepcion.codigo > 0) 
       {
@@ -103,7 +117,7 @@ export class EnterCodePage {
         loading.dismiss();
 
         this.showAlert('Error', 
-          'Ups!, algo no anda bien. Intenta nuevamente:' + err.message);
+          'Ups!, algo no anda bien. Intenta nuevamente!');
        }
     );
   }
@@ -121,41 +135,48 @@ export class EnterCodePage {
   }
 
   PhoneRegister(){
+
     if (this.phoneNumber.trim().length > 0){
 
-      this.storage.set('PhoneNumber', this.phoneNumber.trim());
-      this.storage.set('CodeNumber', this.codeNumber);
-    
-      let loading = this.loadingCtrl.create({
-        content: 'Cargando la información...'
-      });
-    
-      loading.present();
+      this.storageHelper.insertFirstData(this.phoneNumber.trim())
+      .then(()=> {
 
-      this.authProvider.sendPhoneNumber(this.phoneNumber)
-      .then(data => {
+        let loading = this.loadingCtrl.create({
+          content: 'Cargando la información...'
+        });
+      
+        loading.present();
   
-        this.showPhoneCard = true;
-        this.showCodeCard = false;
-
-        loading.dismiss();
-
-        this.showAlert('Información', 
-            'Revise su buzón SMS donde se encuentre el código de activación.');
-        
-      }).catch( err => {
+        this.authProvider.sendPhoneNumber(this.phoneNumber)
+        .then(data => {
+    
+          this.showPhoneCard = true;
+          this.showCodeCard = false;
+          console.log(data);
   
           loading.dismiss();
+  
+          this.showAlert('Información', 
+              'Revise su buzón SMS donde se encuentre el código de activación.');
+          
+        }).catch( err => {
+    
+            loading.dismiss();
+  
+            this.showAlert('Información', 
+              'Ups!, verifica el número e intenta nuevamente.');
+           }
+        );
 
-          this.showAlert('Error', 
-            'Ups!, algo no anda bien. Intenta nuevamente:' + err.message);
-         }
-      );
+        
+      })
+      .catch(e=> {
+        alert(e.message);
+      });
 
     }else{
       this.showAlert('Información', 
           'Debe ingresar el número del teléfono a registrar.');
-
     }
 
   }
@@ -165,7 +186,7 @@ export class EnterCodePage {
     this.showAlert('ID dispositivo: ', uuiddevice );
   }
 
-  resetCellphone()
+  async resetCellphone()
   {
     this.phoneNumber =  "";
     this.codeNumber = "";
@@ -173,16 +194,10 @@ export class EnterCodePage {
     this.showPhoneCard = false;
     this.showCodeCard = true;
     
-    this.storage.remove('PhoneNumber')
-          .then(() => {
-            console.log('PhoneNumber Removed');
-          });
-
-    this.storage.remove('CodeNumber')
-        .then(() => {
-          console.log('CodeNumber Removed');
-        });
+    await this.storageHelper.clearStoreData()
+    .then(()=> {
+      console.log('Registros eliminados!');
+    })
   }
-
 
 }

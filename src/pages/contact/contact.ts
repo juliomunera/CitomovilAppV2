@@ -6,6 +6,10 @@ import { CircDetailPage } from '../circ-detail/circ-detail';
 import { PostEntity, ListComEntity, Valores } from '../../entities/LastComEntity';
 import { ComunicationServiceProvider } from '../../providers/comunication-service/comunication-service';
 
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { Platform } from '@ionic/angular';
+import { StorageEntity } from '../../entities/storageEntity';
+
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html'
@@ -16,9 +20,18 @@ export class ContactPage {
   listGrupalInfo : ListComEntity;
   listSingleInfo : ListComEntity;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController,
+  private database: SQLiteObject;
+  entityResult : StorageEntity;
+
+  msgCount : number = 0;
+  couCount : number = 0;
+
+  constructor(public navCtrl: NavController, 
+    public alertCtrl: AlertController,
     private comunicationService : ComunicationServiceProvider,
     public loadingCtrl: LoadingController,
+    private plt: Platform, 
+    private sqlite: SQLite,
     public events: Events) {
 
     let loading = this.loadingCtrl.create({
@@ -27,49 +40,80 @@ export class ContactPage {
   
     loading.present();
 
-    this.comunicationService.getAllGroupsMessages(this.postInfo)
-           .then(data => {
+    this.plt.ready().then(() => {
+      this.sqlite.create({
+        name: 'citomovil.db',
+        location: 'default'
+      })
+      .then((db: SQLiteObject) => {
+          this.database = db;
 
-             this.listGrupalInfo = <ListComEntity>data;
-             if (this.listGrupalInfo !== undefined && this.listGrupalInfo.totalInstancias > 0)
-             {
-              //  this.msgCount = this.listGrupalInfo.totalInstancias
-              //  this.events.publish('msgCount:updated', this.msgCount);
+          return this.database.executeSql(
+            `SELECT id, ClientID, PhoneNumber, CodeNumber, ApplicationID, DeviceID, ProjectID, DoormanPhoneNumber, Token FROM SettingsData`, [])
+          .then((data) => {
 
-              //  this.events.publish('couCount:updated', this.couCount);
-               loading.dismiss();
-             }                      
-           })
-           .catch( err => {
-                 loading.dismiss();
+            
+            this.entityResult = new StorageEntity();
 
-                 this.showAlert('Error', 
-                   'Ups!, algo no anda bien. Intenta nuevamente:' + err.message);
-                 return;
-               }
-           );
+            if (data === undefined)
+              return this.entityResult;
 
-      this.comunicationService.getAllSingleMessages(this.postInfo)
-           .then(data => {
+            if (data !== undefined && data !== null) {
 
-             this.listSingleInfo = <ListComEntity>data;
-             if (this.listSingleInfo !== undefined && this.listSingleInfo.totalInstancias > 0)
-             {
-              //  this.msgCount = this.msgCount + this.listSingleInfo.totalInstancias
-              //  this.events.publish('msgCount:updated', this.msgCount);
+                if(data.rows.length>0){
 
-              //  this.events.publish('couCount:updated', this.couCount);
-           
-             }                      
-           })
-           .catch( err => {
-                 loading.dismiss();
+                  this.entityResult.id = data.rows.item(0).id;
+                  this.entityResult.PhoneNumber = data.rows.item(0).PhoneNumber;
+                  this.entityResult.CodeNumber = data.rows.item(0).CodeNumber;
+                  this.entityResult.ApplicationID = data.rows.item(0).ApplicationID;
+                  this.entityResult.DeviceID = data.rows.item(0).DeviceID;
+                  this.entityResult.ProjectID = data.rows.item(0).ProjectID;
+                  this.entityResult.DoormanPhoneNumber = data.rows.item(0).DoormanPhoneNumber;
+                  this.entityResult.Token = data.rows.item(0).Token; 
+                  this.entityResult.ClientId = data.rows.item(0).ClientID; 
+                }
+              }
 
-                 this.showAlert('Error', 
-                   'Ups!, algo no anda bien. Intenta nuevamente:' + err.message);
-                 return;
-               }
-           );
+              
+              this.comunicationService.getAllGroupsMessages(this.entityResult.PhoneNumber, this.entityResult.ClientId, this.entityResult.ProjectID, this.entityResult.ApplicationID, this.entityResult.Token)
+              .then(data => {
+   
+                this.listGrupalInfo = <ListComEntity>data;
+                if (this.listGrupalInfo !== undefined && this.listGrupalInfo.totalInstancias > 0)
+                {
+                  // this.msgCount = this.listGrupalInfo.totalInstancias
+                  // alert(this.msgCount);
+                  
+                  // this.events.publish('msgCount:updated', this.msgCount);
+   
+                  // this.events.publish('couCount:updated', this.couCount);
+                  loading.dismiss();
+                }
+                               
+              }).catch(()=> loading.dismiss());
+
+              this.comunicationService.getAllSingleMessages(this.entityResult.PhoneNumber, this.entityResult.ClientId, this.entityResult.ProjectID, this.entityResult.ApplicationID, this.entityResult.Token)
+              .then(data => {
+   
+                this.listSingleInfo = <ListComEntity>data;
+                if (this.listSingleInfo !== undefined && this.listSingleInfo.totalInstancias > 0)
+                {
+                  // this.msgCount = this.msgCount + this.listSingleInfo.totalInstancias
+                  // this.events.publish('msgCount:updated', this.msgCount);
+   
+                  // this.events.publish('couCount:updated', this.couCount);
+              
+                } 
+                
+                loading.dismiss();
+              }).catch(()=> loading.dismiss());
+
+
+            }).catch(()=> loading.dismiss());
+
+      });
+    });
+
 
   }
 
@@ -82,7 +126,7 @@ export class ContactPage {
     
       loading.present();
 
-      this.comunicationService.markMessages(per.IdComunicacion, 'I')
+      this.comunicationService.markMessages(per.IdComunicacion, 'I', this.entityResult.PhoneNumber, this.entityResult.Token)
       .then(data => {
 
           this.events.publish('msgCount:updated', total);
@@ -119,7 +163,7 @@ export class ContactPage {
     
       loading.present();
 
-      this.comunicationService.markMessages(grup.IdComunicacion, 'G')
+      this.comunicationService.markMessages(grup.IdComunicacion, 'G', this.entityResult.PhoneNumber, this.entityResult.Token)
       .then(data => {
 
           this.events.publish('msgCount:updated', total);
@@ -157,13 +201,6 @@ export class ContactPage {
                 }]
       });
       alert.present();
-  }
-
-  ionViewWillEnter() {
-    /*
-    if(this.listSingleInfo !== undefined && this.listSingleInfo.resultados !== undefined)
-      alert('this.listSingleInfo.resultados.length: ' + this.listSingleInfo.resultados.length);
-      */
   }
 
 }
