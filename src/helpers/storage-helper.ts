@@ -2,15 +2,12 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { BehaviorSubject } from 'rxjs';
 import { StorageEntity } from '../entities/storageEntity';
 
 @Injectable()
   export class StorageHelper {
   
     private database: SQLiteObject;
-    private dbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
     public storage : StorageEntity;
 
     constructor(private plt: Platform, private sqlite: SQLite) {

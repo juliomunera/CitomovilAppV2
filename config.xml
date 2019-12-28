@@ -2,7 +2,7 @@
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Citomovil</name>
     <description>Nueva version Citomovil residentes</description>
-    <author email="jul_x@hotmail.com" href="">Julio Cesar Munera R</author>
+    <author email="marketing.citomovil@gmail.com" href="">Citomovil.com</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

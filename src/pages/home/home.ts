@@ -8,7 +8,7 @@ import { AboutPage } from '../about/about';
 import { CouponListPage } from '../coupon-list/coupon-list'; 
 import { Events } from 'ionic-angular';
 
-import { LastComEntity, Valores, PostEntity, ListComEntity, TotalMsgEntity } from '../../entities/LastComEntity';
+import { LastComEntity, Valores, ListComEntity, TotalMsgEntity } from '../../entities/LastComEntity';
 import { ComunicationServiceProvider } from '../../providers/comunication-service/comunication-service';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';

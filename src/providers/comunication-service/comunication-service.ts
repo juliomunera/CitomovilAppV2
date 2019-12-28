@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, ɵConsole } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/delay';
 
 import { ConfigProvider } from '../../providers/config/config';
-import { LastComEntity, PostEntity } from '../../entities/LastComEntity';
+import { LastComEntity } from '../../entities/LastComEntity';
 // import { StorageHelper } from '../../helpers/storage-helper';
 
 @Injectable()
