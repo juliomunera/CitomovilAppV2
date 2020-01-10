@@ -38,6 +38,8 @@ import { DatabaseProvider } from '../providers/database/database';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 // import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @NgModule({
@@ -80,6 +82,7 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
     Uid,
     SMS,
     StorageHelper,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     ConfigProvider,

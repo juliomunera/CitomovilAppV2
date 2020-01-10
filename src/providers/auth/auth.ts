@@ -37,7 +37,7 @@ export class AuthProvider {
     return new Promise((resolve, reject) => {
       this.http.post(this.configProvider.ServerURL + this.configProvider.AuthURL + this.configProvider.generateUUID(), 
             postData, { responseType: 'json' }  ) 
-        .timeout(5000)
+        .timeout(15000)
         .subscribe(res => {
             
             resolve(res);
@@ -60,7 +60,7 @@ export class AuthProvider {
     return new Promise((resolve, reject) => {
       this.http.post(this.configProvider.ServerURL + this.configProvider.SmsURL + this.configProvider.generateUUID(), 
         postData, { responseType: 'json' }  ) 
-        .timeout(5000)
+        .timeout(15000)
         .subscribe(res => {
            console.log('ingreso');
            console.log(res);  

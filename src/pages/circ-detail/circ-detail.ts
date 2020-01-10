@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Valores } from '../../entities/LastComEntity';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 /**
  * Generated class for the CircDetailPage page.
  *
@@ -18,7 +20,9 @@ export class CircDetailPage {
 
   groupItem : Valores;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              private iab: InAppBrowser,
+              public navParams: NavParams) {
       this.groupItem = navParams.get('param1');
 
       if(this.groupItem !== undefined)
@@ -38,7 +42,15 @@ export class CircDetailPage {
   }
 
   openFile() {
-    window.open(this.groupItem.Adjunto, '_system', 'location=yes'); return false;
+    // window.open(this.groupItem.Adjunto, '_system', 'location=yes'); return false;
+
+    this.openInAppBrowser(this.groupItem.Adjunto);
+    return false;
+  }
+
+  openInAppBrowser(url){
+    const browser = this.iab.create(url,'_blank', 'location=no,closebuttoncaption=Cerrar');
+    browser.show();
   }
   
 

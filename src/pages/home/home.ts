@@ -18,7 +18,6 @@ import { Observable } from 'rxjs/rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -55,7 +54,7 @@ export class HomePage {
               private sqlite: SQLite,
               public events: Events, 
               public loadingCtrl: LoadingController, 
-              public events1: Events,
+              public events1: Events,              
               public callNumber : CallNumber
               ) {
 
@@ -146,7 +145,7 @@ export class HomePage {
       return;
 
       try{
-        window.open(`whatsapp://send?text=&phone=+57${this.doormanPhone}&abid=+57${this.doormanPhone}`);
+        window.open(`whatsapp://send?text=&phone=+57${this.doormanPhone}&abid=+57${this.doormanPhone}`,'_system', 'location=yes');
       }catch(error)
       {
         alert(error);
@@ -236,6 +235,8 @@ export class HomePage {
           //      }
           //  );
 
+      }else {
+        loading.dismiss();
       }
 
     }).catch( err => {
@@ -311,19 +312,5 @@ export class HomePage {
    OpenCupones(){
      this.navCtrl.push(CouponListPage);
    }
-
-    //TODO: Cambiar el storage 
-   resetCellphone()
-  {
-    // this.storage.remove('PhoneNumber')
-    //       .then(() => {
-    //         console.log('PhoneNumber Removed');
-    //       });
-
-    // this.storage.remove('CodeNumber')
-    //     .then(() => {
-    //       console.log('CodeNumber Removed');
-    //     });
-  }
 
 }

@@ -45,7 +45,7 @@ export class ComunicationServiceProvider {
     return new Promise((resolve, reject) => {
       this.http.post(this.configProvider.ServerURL + this.configProvider.LastComunicationURL + this.configProvider.generateUUID(), 
             postData, { responseType: 'json' }  ) 
-        .timeout(10000)
+        .timeout(15000)
         .subscribe(res => {
             
             resolve(res);
@@ -69,7 +69,7 @@ export class ComunicationServiceProvider {
     return new Promise((resolve, reject) => {
       this.http.post(this.configProvider.ServerURL + this.configProvider.AllGroupsMessageURL + this.configProvider.generateUUID(), 
         postData, { responseType: 'json' }  ) 
-        .timeout(10000)
+        .timeout(15000)
         .subscribe(res => {
             
             resolve(res);
@@ -93,7 +93,7 @@ export class ComunicationServiceProvider {
     return new Promise((resolve, reject) => {
       this.http.post(this.configProvider.ServerURL + this.configProvider.AllSingleMessageURL + this.configProvider.generateUUID(), 
         postData, { responseType: 'json' }  ) 
-        .timeout(10000)
+        .timeout(15000)
         .subscribe(res => {
             
             resolve(res);
@@ -117,7 +117,7 @@ export class ComunicationServiceProvider {
     return new Promise((resolve, reject) => {
       this.http.post(this.configProvider.ServerURL + this.configProvider.TotalUnreadMsgURL + this.configProvider.generateUUID(), 
         postData, { responseType: 'json' }  ) 
-        .timeout(10000)
+        .timeout(15000)
         .subscribe(res => {
             
             resolve(res);
@@ -146,7 +146,7 @@ export class ComunicationServiceProvider {
 
       this.http.post(this.configProvider.ServerURL + endpointUrl + this.configProvider.generateUUID(), 
         postData, { responseType: 'json' }  ) 
-        .timeout(10000)
+        .timeout(15000)
         .subscribe(res => {
             
             resolve(res);

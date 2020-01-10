@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { Valores } from '../../entities/LastComEntity';
 
@@ -19,7 +20,9 @@ export class PersonalAlertsPage {
 
   personalItem : Valores;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    private iab: InAppBrowser,
+    public navParams: NavParams) {
     this.personalItem = navParams.get('param1');
 
     if(this.personalItem !== undefined)
@@ -40,7 +43,15 @@ export class PersonalAlertsPage {
   }
 
   openFile() {
-    window.open(this.personalItem.Adjunto, '_system', 'location=yes'); return false;
+    //window.open(this.personalItem.Adjunto, '_system', 'location=yes'); return false;
+
+    this.openInAppBrowser(this.personalItem.Adjunto);
+    return false;
+  }
+
+  openInAppBrowser(url){
+    const browser = this.iab.create(url,'_blank', 'location=no,closebuttoncaption=Cerrar,enableViewportScale=yes');
+    browser.show();
   }
   
 }
