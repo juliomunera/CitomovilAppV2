@@ -9,5 +9,8 @@ import { PersonalAlertsPage } from './personal-alerts';
   imports: [
     IonicPageModule.forChild(PersonalAlertsPage),
   ],
+  exports: [
+      PersonalAlertsPage
+  ]
 })
 export class PersonalAlertsPageModule {}

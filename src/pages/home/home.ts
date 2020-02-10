@@ -24,6 +24,9 @@ import 'rxjs/add/operator/map';
 })
 export class HomePage {
 
+  // https://ionicframework.com/docs/publishing/play-store
+  // https://medium.com/buildbuilds/building-2-mobile-apps-from-0-to-launch-in-6-days-day-6-launch-day-b044e1ff3919
+
   lastComunication : LastComEntity = new LastComEntity();
   personalInfo : Valores;
   grupalInfo : Valores;

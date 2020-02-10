@@ -9,5 +9,8 @@ import { CouponListPage } from './coupon-list';
   imports: [
     IonicPageModule.forChild(CouponListPage),
   ],
+  exports: [
+    CouponListPage
+  ]
 })
 export class CouponListPageModule {}

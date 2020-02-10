@@ -10,7 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { CircDetailPage } from '../pages/circ-detail/circ-detail';
 import { PersonalAlertsPage } from '../pages/personal-alerts/personal-alerts';
-import { PqrsListPage } from '../pages/pqrs-list/pqrs-list';
+// import { PqrsListPage } from '../pages/pqrs-list/pqrs-list';
 import { CouponListPage } from '../pages/coupon-list/coupon-list'; 
 
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -39,6 +39,10 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { CircDetailPageModule } from '../pages/circ-detail/circ-detail.module';
+import { CouponListPageModule } from '../pages/coupon-list/coupon-list.module';
+import { PersonalAlertsPageModule } from '../pages/personal-alerts/personal-alerts.module';
+// import { PqrsListPageModule } from '../pages/pqrs-list/pqrs-list.module';
 
 // import { OneSignal } from '@ionic-native/onesignal/ngx';
 
@@ -48,18 +52,21 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage,
-    CircDetailPage,
-    PersonalAlertsPage,
-    PqrsListPage,
-    CouponListPage
+    TabsPage
+    // CircDetailPage,
+    // PersonalAlertsPage,
+    // PqrsListPage
+    // CouponListPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages: true,
-    })
+    }),
+    CircDetailPageModule,
+    CouponListPageModule,
+    PersonalAlertsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,7 +77,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     TabsPage,
     CircDetailPage,
     PersonalAlertsPage,
-    PqrsListPage,
+    // PqrsListPage,
     CouponListPage
   ],
   providers: [

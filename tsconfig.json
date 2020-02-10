@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["cordova"],
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "emitDecoratorMetadata": true,

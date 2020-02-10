@@ -9,5 +9,8 @@ import { CircDetailPage } from './circ-detail';
   imports: [
     IonicPageModule.forChild(CircDetailPage),
   ],
+  exports: [
+    CircDetailPage
+  ]
 })
 export class CircDetailPageModule {}
