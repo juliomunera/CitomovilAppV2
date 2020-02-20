@@ -8,3 +8,7 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cito-release-ke
 ~/Library/Android/sdk/build-tools/27.0.2/zipalign -v 4 app-release-unsigned.apk citomovilv01.apk
 ~/Library/Android/sdk/build-tools/27.0.2/apksigner verify citomovilv01.apk
 
+works:
+ionic cordova build android --release -- -- --keystore=cito-release-key.keystore --storePassword=citomovil --password=citomovil --alias=citomovil
+
+
